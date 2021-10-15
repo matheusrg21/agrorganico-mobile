@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './screens/sign_in_screen.dart';
+import './screens/sign_up_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +17,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(body: SignInScreen()),
+      routes: <String, WidgetBuilder>{
+        SignInScreen.routeName: (ctx) => SignInScreen(),
+        SignUpScreen.routeName: (ctx) => SignUpScreen(),
+      },
     );
   }
 }
