@@ -64,18 +64,18 @@ class SignUpFormState extends State<SignUpForm> {
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color(0xFF424141),
+                  fillColor: Color(0xFFC8C8C8),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFFE5E5E5),
                     ),
                   ),
                   labelStyle: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   labelText: 'EMAIL',
                 ),
@@ -92,18 +92,18 @@ class SignUpFormState extends State<SignUpForm> {
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color(0xFF424141),
+                  fillColor: Color(0xFFC8C8C8),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFFE5E5E5),
                     ),
                   ),
                   labelStyle: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   labelText: 'SENHA',
                   suffixIcon: IconButton(
@@ -126,18 +126,18 @@ class SignUpFormState extends State<SignUpForm> {
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color(0xFF424141),
+                  fillColor: Color(0xFFC8C8C8),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFFE5E5E5),
                     ),
                   ),
                   labelStyle: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   labelText: 'Confirmar Senha',
                   suffixIcon: IconButton(

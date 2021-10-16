@@ -1,6 +1,7 @@
 import 'dart:io';
 
 // import 'package:f2dsys/screens/attendance_screen.dart';
+import 'package:agroorganico_frontend/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:agroorganico_frontend/screens/sign_up_screen.dart';
 // import 'package:provider/provider.dart';
@@ -23,11 +24,12 @@ class SignInFormState extends State<SignInForm> {
   bool _passwordHidden = true;
 
   Future<void> _submit() async {
-    if (!_formKey.currentState.validate()) {
-      // Invalid!
-      return;
-    }
+    // if (!_formKey.currentState.validate()) {
+    //   // Invalid!
+    //   return;
+    // }
     _formKey.currentState.save();
+    Navigator.of(context).pushNamed(MainScreen.routeName);
 
     // try {
     //   Auth authProvider = Provider.of<Auth>(context, listen: false);
@@ -64,18 +66,18 @@ class SignInFormState extends State<SignInForm> {
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color(0xFF424141),
+                  fillColor: Color(0xFFC8C8C8),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFFE5E5E5),
                     ),
                   ),
                   labelStyle: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   labelText: 'EMAIL',
                 ),
@@ -92,18 +94,18 @@ class SignInFormState extends State<SignInForm> {
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color(0xFF424141),
+                  fillColor: Color(0xFFC8C8C8),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Color(0xFFE5E5E5),
                     ),
                   ),
                   labelStyle: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   labelText: 'SENHA',
                   suffixIcon: IconButton(
