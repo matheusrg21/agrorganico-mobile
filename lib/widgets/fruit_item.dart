@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:agroorganico_frontend/models/Fruit.dart';
+import 'package:agroorganico_frontend/screens/fruit_screen.dart';
 
 class FruitItem extends StatelessWidget {
   final Fruit fruit;
@@ -14,12 +15,12 @@ class FruitItem extends StatelessWidget {
         // ),
 
         Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
+          padding: const EdgeInsets.only(bottom: 8.0, top: 20),
           child: Image(
             image: fruit.image,
             // width: MediaQuery.of(context).size.width,
-            // height: 200,
-            // width: 200,
+            height: 260,
+            width: 260,
           ),
         ),
         Container(
@@ -27,7 +28,8 @@ class FruitItem extends StatelessWidget {
             color: Color(0xffC8C8C8),
           ),
           child: TextButton(
-            onPressed: () => null,
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => FruitDetailScream(fruit: fruit))),
             child: Container(
               width: MediaQuery.of(context).size.width,
               child: Center(

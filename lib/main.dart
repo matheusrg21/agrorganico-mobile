@@ -4,6 +4,7 @@ import './screens/sign_up_screen.dart';
 import './screens/main_screen.dart';
 import './screens/shopping_list_screen.dart';
 import './screens/map_screen.dart';
+import './screens/fruit_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         MainScreen.routeName: (ctx) => MainScreen(),
         ShoppingListScreen.routeName: (ctx) => ShoppingListScreen(),
         MapScreen.routeName: (ctx) => MapScreen(),
+        FruitDetailScream.routeName: (ctx) => FruitDetailScream(fruit: null)
       },
     );
   }

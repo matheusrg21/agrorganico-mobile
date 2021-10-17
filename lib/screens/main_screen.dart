@@ -16,7 +16,8 @@ class _MainScreenState extends State<MainScreen> {
   Fruit maca = new Fruit(
       id: '0',
       name: 'maça',
-      description: 'uma fruta',
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consequat vehicula risus vel accumsan. Ut sed fringilla libero. Integer semper libero quis sagittis pellentesque. Morbi feugiat velit metus, quis pretium metus ullamcorper at. Suspendisse sit amet fermentum ipsum. Aliquam auctor arcu nulla, eu porttitor massa cursus id. Maecenas sit amet consectetur lacus.',
       image: NetworkImage('https://picsum.photos/1000'));
   Fruit pera = new Fruit(
       id: '1',
