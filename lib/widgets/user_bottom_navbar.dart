@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:agroorganico_frontend/screens/main_screen.dart';
+import 'package:agroorganico_frontend/screens/shopping_list_screen.dart';
+import 'package:agroorganico_frontend/screens/map_screen.dart';
 
 class UserBottomNavbar extends StatelessWidget {
   final int currentIndex;
@@ -18,7 +21,7 @@ class UserBottomNavbar extends StatelessWidget {
       case 0:
         Navigator.of(context).pushAndRemoveUntil(
           PageRouteBuilder(
-            pageBuilder: (context, _, __) => null,
+            pageBuilder: (context, _, __) => MainScreen(),
             transitionDuration: Duration(seconds: 0),
           ),
           (ModalRoute.withName('/')),
@@ -27,7 +30,7 @@ class UserBottomNavbar extends StatelessWidget {
       case 1:
         Navigator.of(context).pushAndRemoveUntil(
           PageRouteBuilder(
-            pageBuilder: (context, _, __) => null,
+            pageBuilder: (context, _, __) => ShoppingListScreen(),
             transitionDuration: Duration(seconds: 0),
           ),
           (ModalRoute.withName('/')),
@@ -36,7 +39,7 @@ class UserBottomNavbar extends StatelessWidget {
       case 2:
         Navigator.of(context).pushAndRemoveUntil(
           PageRouteBuilder(
-            pageBuilder: (context, _, __) => null,
+            pageBuilder: (context, _, __) => MapScreen(),
             transitionDuration: Duration(seconds: 0),
           ),
           (ModalRoute.withName('/')),
@@ -51,7 +54,7 @@ class UserBottomNavbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       backgroundColor: Color(0xff424141),
-      selectedItemColor: Color(0xFFEF6C00),
+      selectedItemColor: Colors.green,
       unselectedItemColor: Colors.white,
       currentIndex: currentIndex,
       items: [

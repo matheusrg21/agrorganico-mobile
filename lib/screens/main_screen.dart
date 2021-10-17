@@ -2,6 +2,7 @@ import 'package:agroorganico_frontend/widgets/user_bottom_navbar.dart';
 import 'package:agroorganico_frontend/widgets/fruit_item.dart';
 import 'package:agroorganico_frontend/models/Fruit.dart';
 import 'package:flutter/material.dart';
+import 'package:agroorganico_frontend/widgets/profile_button.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/main';
@@ -57,14 +58,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: 20, top: 40, bottom: 0),
-            child: IconButton(
-                iconSize: 60.0,
-                icon: Icon(Icons.person_outlined),
-                onPressed: null),
-          ),
+          ProfileButton(),
           Text(
             'Frutas',
             style: TextStyle(

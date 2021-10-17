@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import './screens/sign_in_screen.dart';
 import './screens/sign_up_screen.dart';
 import './screens/main_screen.dart';
+import './screens/shopping_list_screen.dart';
+import './screens/map_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +24,8 @@ class MyApp extends StatelessWidget {
         SignInScreen.routeName: (ctx) => SignInScreen(),
         SignUpScreen.routeName: (ctx) => SignUpScreen(),
         MainScreen.routeName: (ctx) => MainScreen(),
+        ShoppingListScreen.routeName: (ctx) => ShoppingListScreen(),
+        MapScreen.routeName: (ctx) => MapScreen(),
       },
     );
   }
