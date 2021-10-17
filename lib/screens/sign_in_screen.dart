@@ -22,14 +22,13 @@ class SignInScreen extends StatelessWidget {
                       fontSize: 40,
                     ),
                   ),
-                  // Container(
-                  //   child: SvgPicture.asset(
-                  //     'assets/images/logo_2.svg',
-                  //     height: 20.0,
-                  //     width: 20.0,
-                  //     allowDrawingOutsideViewBox: false,
-                  //   ),
-                  // ),
+                  Container(
+                    child: Image.asset(
+                      'assets/images/logo_2.png',
+                      // height: 200,
+                      // width: 200,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: SignInForm(),

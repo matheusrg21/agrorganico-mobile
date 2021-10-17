@@ -30,14 +30,12 @@ class SignUpFormState extends State<SignUpForm> {
     _formKey.currentState.save();
 
     // try {
-    //   Auth authProvider = Provider.of<Auth>(context, listen: false);
-    //   await authProvider.signIn(_authData['username'], _authData['password']);
 
     // } on HttpException catch (error) {
     //   String errorMessage = 'A autenticação falhou.';
     //   if (error.toString().contains('Unauthorized')) {
     //     errorMessage =
-    //         'Autenticação não autorizada.\n\nVerifique se suas credenciais foram inseridas corretamente.';
+    //         '';
     //   }
   }
 

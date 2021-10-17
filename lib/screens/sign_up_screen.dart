@@ -22,12 +22,18 @@ class SignUpScreen extends StatelessWidget {
                       fontSize: 40,
                     ),
                   ),
-                  // Container(
-                  //   child: SvgPicture.asset(
-                  //     'assets/images/logo_2.svg',
-                  //     height: 20.0,
-                  //     width: 20.0,
-                  //     allowDrawingOutsideViewBox: false,
+                  Container(
+                    child: Image.asset(
+                      'assets/images/logo_2.png',
+                      // height: 200,
+                      // width: 200,
+                    ),
+                  ),
+                  // Text(
+                  //   'Agroôrganico',
+                  //   style: TextStyle(
+                  //     color: Colors.black,
+                  //     fontSize: 20,
                   //   ),
                   // ),
                   Padding(

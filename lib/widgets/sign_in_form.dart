@@ -27,13 +27,11 @@ class SignInFormState extends State<SignInForm> {
     // if (!_formKey.currentState.validate()) {
     //   // Invalid!
     //   return;
-    // }
+    // } Descomentar esse trecho quando a integração estiver completa
     _formKey.currentState.save();
     Navigator.of(context).pushNamed(MainScreen.routeName);
 
     // try {
-    //   Auth authProvider = Provider.of<Auth>(context, listen: false);
-    //   await authProvider.signIn(_authData['username'], _authData['password']);
 
     // } on HttpException catch (error) {
     //   String errorMessage = 'A autenticação falhou.';

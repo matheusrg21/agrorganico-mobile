@@ -13,6 +13,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   var _fruits = [];
+  // placeholder
   Fruit maca = new Fruit(
       id: '0',
       name: 'maça',
@@ -39,19 +40,21 @@ class _MainScreenState extends State<MainScreen> {
       name: 'kiwi',
       description: 'uma fruta',
       image: NetworkImage('https://picsum.photos/1000'));
+  // placeholder
 
-  Future<void> _getFruits(BuildContext context) async {
+  Future<void> _getFruits() async {
+    // Função para pegar dados do back end
     // await getFruits();
     setState(() {
-      // _fruits = getFruitsresponde;
+      // _fruits = getFruitsresponse;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    _getFruits(context);
-    _fruits = [maca, pera, morango, kiwi, uva];
+    _getFruits();
+    _fruits = [maca, pera, morango, kiwi, uva]; // placeholder
   }
 
   @override
