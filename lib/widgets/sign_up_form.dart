@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:agroorganico_frontend/screens/main_screen.dart';
+import 'package:agroorganico_frontend/widgets/notification_dialog.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -35,12 +36,10 @@ class SignUpFormState extends State<SignUpForm> {
     try {
       var dio = Dio();
       var data = {'name': _authData['name'], 'email': _authData['username'], 'password': _authData['password'], 'password_confirmation': _authData['passwordConfirmation']};
-      print("Data: $data");
 
       var response = await dio.post(
           "https://agroorganicobackend.herokuapp.com/users/", data: data);
 
-      print(response);
       if(response.statusCode == 201){
         response = await dio.post(
             "https://agroorganicobackend.herokuapp.com/auth/login?email=${_authData["username"]}&password=${_authData['password']}");
@@ -51,7 +50,10 @@ class SignUpFormState extends State<SignUpForm> {
       }
     } on DioError catch (error) {
       String errorMessage = 'O cadastro falhou.';
-      print(errorMessage);
+      if(error.response.statusCode == 422){
+        errorMessage = 'Não foi possível realizar o cadastro.\n\nVerifique se as informações são válidas ou se o e-mail já está cadastrado.';
+      }
+      showConfirmationDialog(errorMessage, this.context);
       return;
     }
 
