@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 // import '../../providers/auth.dart';
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:agroorganico_frontend/screens/main_screen.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -15,6 +18,7 @@ class SignUpForm extends StatefulWidget {
 class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   Map<String, String> _authData = {
+    'name': '',
     'username': '',
     'password': '',
     'passwordConfirm': '',
@@ -28,6 +32,28 @@ class SignUpFormState extends State<SignUpForm> {
       return;
     }
     _formKey.currentState.save();
+    try {
+      var dio = Dio();
+      var data = {'name': _authData['name'], 'email': _authData['username'], 'password': _authData['password'], 'password_confirmation': _authData['passwordConfirmation']};
+      print("Data: $data");
+
+      var response = await dio.post(
+          "https://agroorganicobackend.herokuapp.com/users/", data: data);
+
+      print(response);
+      if(response.statusCode == 201){
+        response = await dio.post(
+            "https://agroorganicobackend.herokuapp.com/auth/login?email=${_authData["username"]}&password=${_authData['password']}");
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('token', response.data['token']);
+
+        Navigator.of(context).pushNamed(MainScreen.routeName);
+      }
+    } on DioError catch (error) {
+      String errorMessage = 'O cadastro falhou.';
+      print(errorMessage);
+      return;
+    }
 
     // try {
 
@@ -61,6 +87,35 @@ class SignUpFormState extends State<SignUpForm> {
               padding: EdgeInsets.all(8.0),
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color(0xFFC8C8C8),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color(0xFFE5E5E5),
+                    ),
+                  ),
+                  labelStyle: TextStyle(
+                    color: Colors.black,
+                  ),
+                  labelText: 'NOME',
+                ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'O nome não pode ser vazio';
+                  }
+                  return null;
+                },
+                onSaved: (value) => _authData['name'] = value,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextFormField(
+                keyboardType: TextInputType.name,
                 style: TextStyle(
                   color: Colors.black,
                 ),

@@ -3,6 +3,8 @@ import 'package:agroorganico_frontend/widgets/fruit_item.dart';
 import 'package:agroorganico_frontend/models/Fruit.dart';
 import 'package:flutter/material.dart';
 import 'package:agroorganico_frontend/widgets/profile_button.dart';
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/main';
@@ -13,40 +15,31 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   var _fruits = [];
-  // placeholder
-  Fruit maca = new Fruit(
-      id: '0',
-      name: 'maça',
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consequat vehicula risus vel accumsan. Ut sed fringilla libero. Integer semper libero quis sagittis pellentesque. Morbi feugiat velit metus, quis pretium metus ullamcorper at. Suspendisse sit amet fermentum ipsum. Aliquam auctor arcu nulla, eu porttitor massa cursus id. Maecenas sit amet consectetur lacus.',
-      image: NetworkImage('https://picsum.photos/1000'));
-  Fruit pera = new Fruit(
-      id: '1',
-      name: 'pera',
-      description: 'uma fruta',
-      image: NetworkImage('https://picsum.photos/1000'));
-  Fruit morango = new Fruit(
-      id: '1',
-      name: 'morango',
-      description: 'uma fruta',
-      image: NetworkImage('https://picsum.photos/1000'));
-  Fruit uva = new Fruit(
-      id: '1',
-      name: 'uva',
-      description: 'uma fruta',
-      image: NetworkImage('https://picsum.photos/1000'));
-  Fruit kiwi = new Fruit(
-      id: '1',
-      name: 'kiwi',
-      description: 'uma fruta',
-      image: NetworkImage('https://picsum.photos/1000'));
-  // placeholder
+
+  Future<String> _getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs?.getString('token'));
+    return prefs?.getString('token');
+  }
 
   Future<void> _getFruits() async {
     // Função para pegar dados do back end
-    // await getFruits();
+    print("GETTING FRUITS");
+    var dio = Dio();
+    final userToken = await _getToken();
+    List<Fruit> allFruits = [];
+    print("TOKEN: $userToken");
+    var fruits = await dio.get("https://agroorganicobackend.herokuapp.com/fruits/", options: Options(headers: {"Authorization": "Bearer $userToken", 'Content-Type': 'application/json',
+    'Accept': 'application/json'}));
+    for (var responseFruit in fruits.data){
+      allFruits.add(new Fruit(
+          id: responseFruit['id'],
+          name: responseFruit['name'],
+          description: responseFruit['description'],
+          image: NetworkImage('https://picsum.photos/1000')));
+    }
     setState(() {
-      // _fruits = getFruitsresponse;
+      _fruits = allFruits;
     });
   }
 
@@ -54,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _getFruits();
-    _fruits = [maca, pera, morango, kiwi, uva]; // placeholder
+    _fruits = [];
   }
 
   @override

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:agroorganico_frontend/widgets/user_bottom_navbar.dart';
 import 'package:agroorganico_frontend/widgets/profile_button.dart';
 import 'package:agroorganico_frontend/widgets/shopping_item.dart';
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ShoppingListScreen extends StatefulWidget {
   static const String routeName = '/shopping-list';
@@ -14,9 +17,33 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   List<String> _shoppingList = [];
   String _newItem;
   final _key = new GlobalKey<FormState>();
+  final dio = Dio();
 
-  void _getShoppingList() {} //Função para pegar a lista do back-end
+  Future<String> _getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs?.getString('token');
+  }
 
+  Future<List<String>> _getShoppingList() async {
+    print("SHOPPING LIST");
+    final userToken = await _getToken();
+    var fruits = await dio.get("https://agroorganicobackend.herokuapp.com/fruits/", options: Options(headers: {"Authorization": "Bearer $userToken", 'Content-Type': 'application/json',
+    'Accept': 'application/json'}));
+    List<String> allFruits = [];
+    for (var fruit in fruits.data){
+      allFruits.add(fruit['name']);
+    }
+    print(allFruits);
+
+    setState(() {
+      _shoppingList = allFruits;
+    });
+    return this._shoppingList;
+  } //Função para pegar a lista do back-end
+
+  Future<void> _removeFruitFromList() async {
+
+  }
   void _removeItem(int index) {
     //Remover no back-end
     // _shoppingList.removeAt(index);
@@ -40,7 +67,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   void initState() {
     super.initState();
     _getShoppingList();
-    _shoppingList = ['maça', 'pera', 'uva', 'banana'];
+    _shoppingList = [];
   }
 
   Widget build(BuildContext context) {
