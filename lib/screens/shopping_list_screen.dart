@@ -18,22 +18,30 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   String _newItem;
   final _key = new GlobalKey<FormState>();
   final dio = Dio();
+  String userId;
+  String userToken;
+  int shoppingListId;
 
   Future<String> _getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs?.getString('token');
   }
 
+  Future<String> _getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs?.getString('userId');
+  }
+
   Future<List<String>> _getShoppingList() async {
-    print("SHOPPING LIST");
-    final userToken = await _getToken();
-    var fruits = await dio.get("https://agroorganicobackend.herokuapp.com/fruits/", options: Options(headers: {"Authorization": "Bearer $userToken", 'Content-Type': 'application/json',
+    userToken = await _getToken();
+    userId = await _getUserId();
+    var fruits = await dio.get("https://agroorganicobackend.herokuapp.com/users/$userId/shopping_lists/", options: Options(headers: {"Authorization": "Bearer $userToken", 'Content-Type': 'application/json',
     'Accept': 'application/json'}));
     List<String> allFruits = [];
-    for (var fruit in fruits.data){
-      allFruits.add(fruit['name']);
+    shoppingListId = fruits.data[0]["id"];
+    for (var fruit in fruits.data[0]["itens"]){
+      allFruits.add(fruit);
     }
-    print(allFruits);
 
     setState(() {
       _shoppingList = allFruits;
@@ -44,15 +52,19 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   Future<void> _removeFruitFromList() async {
 
   }
-  void _removeItem(int index) {
+  void _removeItem(int index) async {
     //Remover no back-end
     // _shoppingList.removeAt(index);
     setState(() {
       _shoppingList.removeAt(index);
     });
+
+    var data = {"itens": _shoppingList};
+    var response = await dio.put("https://agroorganicobackend.herokuapp.com/users/$userId/shopping_lists/$shoppingListId", data: data, options: Options(headers: {"Authorization": "Bearer $userToken", 'Content-Type': 'application/json',
+      'Accept': 'application/json'}));
   }
 
-  void _add() {
+  void _add() async {
     if (!_key.currentState.validate()) {
       // Invalid!
       return;
@@ -61,6 +73,9 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     setState(() {
       _shoppingList.add(_newItem);
     });
+    var data = {"itens": _shoppingList};
+    var response = await dio.put("https://agroorganicobackend.herokuapp.com/users/$userId/shopping_lists/$shoppingListId", data: data, options: Options(headers: {"Authorization": "Bearer $userToken", 'Content-Type': 'application/json',
+      'Accept': 'application/json'}));
   }
 
   @override

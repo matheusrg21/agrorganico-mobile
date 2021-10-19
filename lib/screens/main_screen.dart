@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:agroorganico_frontend/widgets/profile_button.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:diacritic/diacritic.dart';
 
 class MainScreen extends StatefulWidget {
   static const String routeName = '/main';
@@ -32,11 +33,12 @@ class _MainScreenState extends State<MainScreen> {
     var fruits = await dio.get("https://agroorganicobackend.herokuapp.com/fruits/", options: Options(headers: {"Authorization": "Bearer $userToken", 'Content-Type': 'application/json',
     'Accept': 'application/json'}));
     for (var responseFruit in fruits.data){
+      var slugFilename = removeDiacritics(responseFruit['name']).toLowerCase().replaceAll("-", "_").replaceAll(" ", "").replaceAll(".", "");
       allFruits.add(new Fruit(
           id: responseFruit['id'],
           name: responseFruit['name'],
           description: responseFruit['description'],
-          image: NetworkImage('https://picsum.photos/1000')));
+          image: AssetImage('assets/images/fruits/$slugFilename.png')));
     }
     setState(() {
       _fruits = allFruits;

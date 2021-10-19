@@ -40,6 +40,7 @@ class SignInFormState extends State<SignInForm> {
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', response.data['token']);
+      prefs.setString('userId', response.data['id'].toString());
     } on DioError catch (error) {
       String errorMessage = "Não foi possível realizar a autenticação.\nTente novamente.";
       if(error.response.statusCode == 401){
