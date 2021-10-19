@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:agroorganico_frontend/screens/sign_up_screen.dart';
 // import 'package:provider/provider.dart';
 // import '../../providers/auth.dart';
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:agroorganico_frontend/widgets/notification_dialog.dart';
 
 class SignInForm extends StatefulWidget {
   @override
@@ -24,11 +27,28 @@ class SignInFormState extends State<SignInForm> {
   bool _passwordHidden = true;
 
   Future<void> _submit() async {
-    // if (!_formKey.currentState.validate()) {
-    //   // Invalid!
-    //   return;
-    // } Descomentar esse trecho quando a integração estiver completa
+    var dio = Dio();
+    if (!_formKey.currentState.validate()) {
+      // Invalid!
+      return;
+    } // Descomentar esse trecho quando a integração estiver completa
     _formKey.currentState.save();
+
+    try {
+      var response = await dio.post(
+          "https://agroorganicobackend.herokuapp.com/auth/login?email=${_authData["username"]}&password=${_authData['password']}");
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', response.data['token']);
+      prefs.setString('userId', response.data['id'].toString());
+    } on DioError catch (error) {
+      String errorMessage = "Não foi possível realizar a autenticação.\nTente novamente.";
+      if(error.response.statusCode == 401){
+        errorMessage = 'Autenticação não autorizada.\n\nVerifique se suas credenciais foram inseridas corretamente.';
+      }
+      showConfirmationDialog(errorMessage, this.context);
+      return;
+    }
     Navigator.of(context).pushNamed(MainScreen.routeName);
 
     // try {
