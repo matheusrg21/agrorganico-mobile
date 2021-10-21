@@ -1,16 +1,21 @@
-# agroorganico_frontend
+# README
 
-A new Flutter project.
+Projeto feito em Flutter
+Essa é uma solução Mobile que se comunica com o backend
+localizado
+https://github.com/matheusrg21/agrorganico-backend
+para o projeto Agroôrganico para o curso SI ( Sistema de Informação ) com o propósito de oferecer uma ferramente que possibilita criação de Listas de compras, localização de feiras, informações nutricionais e gerais de alimentos e produtos.
 
-## Getting Started
+Instalação do Flutter
+https://flutter.dev/docs/get-started/install
 
-This project is a starting point for a Flutter application.
+Caso queira desenvolver uma solução.
 
-A few resources to get you started if this is your first Flutter project:
+- [Escreva seu primeiro sistema em flutter](https://flutter.dev/docs/get-started/codelab)
+- [Exemplos em Flutter](https://flutter.dev/docs/cookbook)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Git clone para captura do código fonte local.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    flutter run
+
+para execução após as instruções localizadas acima.
